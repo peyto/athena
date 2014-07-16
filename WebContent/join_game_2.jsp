@@ -1,8 +1,8 @@
 <%@page import="java.security.Principal"%>
-<%@page import="com.kma8794.athena.engine.entity.Game"%>
-<%@page import="com.kma8794.athena.services.GameFactory"%>
-<%@page import="com.kma8794.athena.services.Environment"%>
-<%@page import="com.kma8794.athena.services.impl.EnvironmentSingleton"%>
+<%@page import="com.peyto.athena.engine.entity.Game"%>
+<%@page import="com.peyto.athena.services.GameFactory"%>
+<%@page import="com.peyto.athena.services.Environment"%>
+<%@page import="com.peyto.athena.services.impl.EnvironmentSingleton"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
