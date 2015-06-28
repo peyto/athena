@@ -16,7 +16,9 @@
 	
 	if (principal!=null) {
 		String user = principal.getName();
-		Game game = env.getService(GameFactory.class).createGame(Integer.valueOf(request.getParameter("players_number")));
+		Game game = env.getService(GameFactory.class).createGame(
+				Integer.valueOf(request.getParameter("players_number")), 
+				request.getParameter("map_name"));
 		int gameId = game.getId();
 %>
 		<jsp:forward page="join_game.jsp">

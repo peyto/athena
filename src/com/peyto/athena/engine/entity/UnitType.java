@@ -3,36 +3,33 @@ package com.peyto.athena.engine.entity;
 public enum UnitType {
 	
 	// max is 20, all values are relative!
-	
-	Clubs(1, 9, 1,  6, 5,  4, 3, 5,  15, 4, 100, "images/club.png"),
-	Rebels(1, 8, 1,  5, 4,  5, 5, 4,  18, 8, 100, "images/rebel.png"),
-	
-	Swords(1, 7, 1,  12, 8,  9, 7, 7,  12, 10, 100, "images/sword.png"),
-	Pikes (1, 7, 1,  8, 11,  7, 13, 7,  12, 10, 100, "images/pike.png"),
-	
-	HeavySwords(1, 5, 1,  16, 14,  12, 10, 15,  16, 12, 100, "images/hsword1.png"),
-	Phalanx    (1, 4, 1,  10, 12,  15, 18, 18,  15, 15, 100, "images/phalanx.png"),
-	
-	Archers    (1, 7, 12,  8, 8,  3, 1, 4,  10, 10, 100, "images/bow1.png"),
-	HorseArchers(1, 18, 5,  9, 9,  8, 12, 6,  10, 10, 100, "images/1"),
-	
-	Horses(1, 20, 1,  12, 10,  8, 10, 8,  15, 12, 100, "images/kazak2.png"),
-	
-	Knights(1, 14, 1,  16, 14,  12, 10, 15,  20, 18, 100, "images/knight1.png");
+	//           speed  range    attack    def  morale units                                           
+  //Clubs       (1, 7,  1, 1,   6,  3, 0,   3,  15, 4,  100, "club"),
+	Rebels      (1, 7,  1,1,    6,  3, 0,   3,  16,  7, 100, UnitTypeHorse.Infantry, "rebel"),
+	Pikes       (1, 6,  1,1,    7, 13, 0,   5,  10, 10, 100, UnitTypeHorse.Infantry, "pike"),
+	Swords      (1, 6,  1,1,   10,  7, 0,   8,  10, 10, 100, UnitTypeHorse.Infantry, "sword"),
+	Phalanx     (1, 4,  1,1,    8, 10, 0,   8,  15, 15, 100, UnitTypeHorse.Infantry, "phalanx"),
+	HeavySwords (1, 5,  1,1,   14, 10, 0,  14,  15, 12,  80, UnitTypeHorse.Infantry, "hsword"),
+	Archers     (1, 6,  12, 4,  3,  1, 9,   3,  10, 10, 100, UnitTypeHorse.Infantry, "archer"),
+	HorseArchers(1, 14, 6, 3,   9,  5, 8,   6,  16, 12,  60, UnitTypeHorse.Cavalary, "horse_archer"),
+	Horses      (1, 16, 1,1,   12, 10, 0,   8,  15, 13,  80, UnitTypeHorse.Cavalary, "horse"),
+	Knights     (1, 12, 1,1,   16, 14, 0,  14,  18, 18,  60, UnitTypeHorse.Cavalary, "knight");
 	
 	
 	
 	// 1 - infantry, 2 - archer
 	int type; 
+	UnitTypeHorse unitTypeHorse;
 	int speed; 
-	int range;
+	
+	int rangeMin;
+	int rangeMax;
 	
 	int attackInfantry; 
 	int attackHorse; 
+	int attackBows;
 	
-	int defenseInfantry; 
-	int defHorse;
-	int defArchers;
+	int defenseArmor; 
 	
 	int moraleBase; 
 	int moraleEndurance;
@@ -40,18 +37,23 @@ public enum UnitType {
 	int units;
 	String img;
 	
-	private UnitType(int type, int speed, int range, int attackInfantry, int attackHorse, int defenseInfantry, int defHorse, int defArchers, int moraleBase, int moraleEndurance, int units, String img) {
+	private UnitType(int type, int speed, int rangeMax, int rangeMin, int attackInfantry, int attackHorse, int attackBows, int defenseArmor, int moraleBase, int moraleEndurance, int units, UnitTypeHorse unitTypeHorse, String img) {
 		this.type = type;
 		this.speed = speed;
-		this.range = range;
+		this.rangeMin = rangeMin;
+		this.rangeMax = rangeMax;
+		
 		this.attackInfantry = attackInfantry;
 		this.attackHorse = attackHorse;
-		this.defenseInfantry = defenseInfantry;
-		this.defHorse = defHorse;
-		this.defArchers = defArchers;
+		this.attackBows = attackBows;
+		
+		this.defenseArmor = defenseArmor;
+		
 		this.moraleBase = moraleBase;
 		this.moraleEndurance = moraleEndurance;
+		
 		this.units = units;
+		this.unitTypeHorse = unitTypeHorse;
 		this.img = img;
 	} 
 	
@@ -67,8 +69,12 @@ public enum UnitType {
 		return speed;
 	}
 
-	public int getRange() {
-		return range;
+	public int getRangeMin() {
+		return rangeMin;
+	}
+	
+	public int getRangeMax() {
+		return rangeMax;
 	}
 
 	public int getAttackInfantry() {
@@ -78,19 +84,15 @@ public enum UnitType {
 	public int getAttackHorse() {
 		return attackHorse;
 	}
-
-	public int getDefenseInfantry() {
-		return defenseInfantry;
+	
+	public int getAttackBows() {
+		return attackBows;
 	}
 
-	public int getDefHorse() {
-		return defHorse;
+	public int getDefenseArmor() {
+		return defenseArmor;
 	}
-
-	public int getDefArchers() {
-		return defArchers;
-	}
-
+	
 	public int getMoraleBase() {
 		return moraleBase;
 	}
@@ -103,6 +105,9 @@ public enum UnitType {
 		return units;
 	}
 	
+	public UnitTypeHorse getUnitTypeHorse() {
+		return unitTypeHorse;
+	}
 	
 	
 	
