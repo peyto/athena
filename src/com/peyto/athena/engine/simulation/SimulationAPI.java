@@ -1,11 +1,11 @@
-package ru.kma8794.athena.engine.simulation;
+package com.peyto.athena.engine.simulation;
 
 import java.lang.reflect.Field;
 
-import ru.kma8794.athena.engine.controllers.FormulasAndBallance;
-import ru.kma8794.athena.engine.controllers.fight.AttackResult;
-import ru.kma8794.athena.engine.entity.Unit;
-import ru.kma8794.athena.engine.entity.UnitType;
+import com.peyto.athena.engine.controllers.FormulasAndBallance;
+import com.peyto.athena.engine.controllers.fight.AttackResult;
+import com.peyto.athena.engine.entity.Unit;
+import com.peyto.athena.engine.entity.UnitType;
 
 public class SimulationAPI {
 	

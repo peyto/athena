@@ -1,4 +1,4 @@
-package ru.kma8794.athena.engine.controllers.fight;
+package com.peyto.athena.engine.controllers.fight;
 
 public class AttackerData {
 	

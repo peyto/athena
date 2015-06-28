@@ -1,6 +1,6 @@
-package ru.kma8794.athena.engine.math;
+package com.peyto.athena.engine.math;
 
-import ru.kma8794.athena.engine.entity.Position;
+import com.peyto.athena.engine.entity.Position;
 
 public class HumanCoordinates {
 	private Position position;

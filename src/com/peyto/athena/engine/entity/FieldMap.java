@@ -1,4 +1,4 @@
-package ru.kma8794.athena.engine.entity;
+package com.peyto.athena.engine.entity;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -17,8 +17,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import ru.kma8794.athena.engine.math.HexUtils;
-import ru.kma8794.athena.engine.math.NormalizedHexagonCoordinates;
+import com.peyto.athena.engine.math.HexUtils;
+import com.peyto.athena.engine.math.NormalizedHexagonCoordinates;
 
 public class FieldMap implements Serializable{
 	private final int sizeX;

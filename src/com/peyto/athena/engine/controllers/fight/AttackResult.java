@@ -1,6 +1,6 @@
-package ru.kma8794.athena.engine.controllers.fight;
+package com.peyto.athena.engine.controllers.fight;
 
-import ru.kma8794.athena.engine.controllers.fight.AttackerData;
+import com.peyto.athena.engine.controllers.fight.AttackerData;
 
 public class AttackResult {
 	int harmAttacker;

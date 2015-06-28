@@ -1,4 +1,4 @@
-package ru.kma8794.athena.engine.entity;
+package com.peyto.athena.engine.entity;
 
 import java.io.Serializable;
 

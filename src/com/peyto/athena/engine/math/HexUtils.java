@@ -1,4 +1,4 @@
-package ru.kma8794.athena.engine.math;
+package com.peyto.athena.engine.math;
 
 public class HexUtils {
 	public static HumanCoordinates convert(OptimalHexagonCoordinates h) {

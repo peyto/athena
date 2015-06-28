@@ -1,4 +1,4 @@
-package ru.kma8794.athena.engine.math;
+package com.peyto.athena.engine.math;
 
 public class NormalizedHexagonCoordinates extends HexagonCoordinates{
 	

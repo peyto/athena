@@ -1,4 +1,4 @@
-<%@page import="ru.kma8794.athena.engine.entity.UnitType"%>
+<%@page import="com.peyto.athena.engine.entity.UnitType"%>
 <%@page import="java.security.Principal"%>
 <%@page import="com.peyto.athena.engine.entity.Team"%>
 <%@page import="com.peyto.athena.services.Environment"%>
