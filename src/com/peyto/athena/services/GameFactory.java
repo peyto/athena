@@ -12,8 +12,14 @@ public class GameFactory {
 		this.env = env;
 	}
 	
-	public Game createGame(int players_number) {
-		Game game = new Game(ids.generateUniqueId(), players_number, 30);
+	public Game createGame(int players_number, String mapName) {
+		Game game = null;
+		if (mapName!=null && !mapName.equals("")) {
+			game = new Game(ids.generateUniqueId(), players_number, mapName);
+		} else {
+			// For some reason map was not selected
+			game = new Game(ids.generateUniqueId(), players_number, 50, 30);
+		}
 		env.storeUniqueObject(game.getId(), game);
 		
 		return game;
