@@ -4,13 +4,13 @@
   
 	<servlet>
 		<servlet-name>startup</servlet-name>
-		<servlet-class>com.kma8794.athena.modules.GamePrototypeStartup</servlet-class>
+		<servlet-class>com.peyto.athena.modules.GamePrototypeStartup</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
 	<servlet>
 		<servlet-name>ajaxGameHandler</servlet-name>
-		<servlet-class>com.kma8794.athena.modules.AjaxGameHandler</servlet-class>
+		<servlet-class>com.peyto.athena.modules.AjaxGameHandler</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	
