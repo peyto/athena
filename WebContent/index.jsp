@@ -39,7 +39,14 @@ You logged in as: <b><%=user %></b>
 		<option value="3">3</option>
 		<option value="4">4</option>
 	</select>
+	<input name="map_name" type="text">
 	<input type="submit" value="Create">
+</form>
+
+<form action="utils_editor.jsp">
+Map Editor <input name="xsize" width="20px" type="text"><input name="ysize" width="20px" type="text">
+or <input name="filename" width="20px" type="text">
+	<input type="submit" value="Map Editor">
 </form>
 </body>	
 </html>

@@ -55,11 +55,13 @@ $.fn.dragscrollable = function( options ){
 		{   
 			dragSelector:'>:first',
 			acceptPropagatedEvent: true,
-            preventDefault: true
+            preventDefault: true,
+            clickDisablerSelector:'>:first'
 		},options || {});
 	 
 	
 	var dragscroll= {
+		dragHappened : {time: Date.now()-1000, x:0, y:0},	
 		mouseDownHandler : function(event) {
 			// mousedown, left click, check propagation
 			if (event.which!=1 ||
@@ -75,6 +77,8 @@ $.fn.dragscrollable = function( options ){
 			$.event.add( document, "mousemove", 
 						 dragscroll.mouseMoveHandler, event.data );
 			if (event.data.preventDefault) {
+				dragscroll.dragHappened.x = event.clientX;
+				dragscroll.dragHappened.y = event.clientY;
                 event.preventDefault();
                 return false;
             }
@@ -92,7 +96,9 @@ $.fn.dragscrollable = function( options ){
 			
 			// Save where the cursor is
 			event.data.lastCoord={left: event.clientX, top: event.clientY}
+			
 			if (event.data.preventDefault) {
+				dragscroll.dragHappened.time = Date.now();
                 event.preventDefault();
                 return false;
             }
@@ -103,8 +109,25 @@ $.fn.dragscrollable = function( options ){
 			$.event.remove( document, "mouseup", dragscroll.mouseUpHandler);
 			if (event.data.preventDefault) {
                 event.preventDefault();
+                if (dragscroll.dragHappened.x - event.clientX!=0 ||
+                		dragscroll.dragHappened.y - event.clientY!=0) {
+                	dragscroll.dragHappened.time = Date.now();
+                }
                 return false;
             }
+		},
+		click : function(event) { // Preventing click on underlying
+			if (event.data.preventDefault) {
+				//alert('Preventing '+(Date.now() - dragscroll.dragHappened.time));
+				// We are preventing a click if it's not later than 'delay' after draging
+				if (Date.now() - dragscroll.dragHappened.time < 50) {
+					event.preventDefault();
+					event.stopImmediatePropagation();
+					return false;
+	            } else {
+	            	return true;
+	            }
+			}
 		}
 	}
 	
@@ -116,7 +139,12 @@ $.fn.dragscrollable = function( options ){
                     preventDefault : settings.preventDefault }
 		// Set mouse initiating event on the desired descendant
 		$(this).find(settings.dragSelector).
-						bind('mousedown', data, dragscroll.mouseDownHandler);
+						on('mousedown', data, dragscroll.mouseDownHandler);
+		// Set handlers to disable click after dragging
+		if (data.preventDefault) {
+			$(this).find(settings.clickDisablerSelector).
+							on('click', data, dragscroll.click);
+		}
 	});
 }; //end plugin dragscrollable
 

@@ -1,0 +1,301 @@
+html, body, #positioning_table {
+	height: 99%;
+}
+
+#positioning_table {
+ table-layout: fixed;
+}
+
+#positioning_table td.left-field {
+	width:80%;
+	
+}
+
+#positioning_table tbody, #positioning_table tr, #positioning_table td.left-field {
+	height:100%;
+}
+
+#board {
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	overflow: auto;
+}
+
+.game_table {
+	border-collapse: collapse;
+	width: 100%;
+	height: 100%;
+}
+
+.game_table div {
+	padding: 0px;
+	font-size: 10px;
+	vertical-align: bottom;
+}
+.game_table div div {
+	position: relative;
+}
+
+/* This is for zoom==2 only*/
+.game_table div div img {
+	position: absolute;
+	z-index: 5;
+	left: 10px;
+	top: 35px;
+}
+
+.game_table div div b {
+	position: absolute;
+	z-index: 10;
+	color: white;
+}
+
+div.team1 {
+	background-image: none;
+	background-color: #8888FF;
+}
+
+div.team2 {
+	background-image: none;
+	background-color: #FF8888;
+}
+
+.game_table div.selected div div{
+	background-image: none;
+	background-color: orange;
+	opacity: 0.6;
+	height: 100%
+}
+
+.game_table div.canMove div div{
+	background-image: none;
+	background-color: blue;
+	opacity: 0.6;
+	height: 100%
+}
+
+.game_table div.shootMargin div div{
+	background-image: none;
+	background-color: orange;
+	opacity: 0.6;
+	height: 100%
+}
+
+.game_table div.canAttack {
+	cursor: url("../images/2swords.gif"), auto;
+}
+
+.game_table div.canShoot {
+	cursor: url("../images/arrow.gif"), auto;
+}
+
+
+.hex-row {
+}
+
+
+
+.hexagon {
+    overflow: hidden;
+    visibility: hidden;
+    display: inline-block;
+    -webkit-transform: rotate(120deg);
+       -moz-transform: rotate(120deg);
+        -ms-transform: rotate(120deg);
+         -o-transform: rotate(120deg);
+            transform: rotate(120deg);
+    cursor: pointer;
+}
+    
+.hexagon-in1 {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: rotate(-60deg);
+       -moz-transform: rotate(-60deg);
+        -ms-transform: rotate(120deg);
+         -o-transform: rotate(-60deg);
+            transform: rotate(-60deg);
+}
+
+.hexagon-in2 {
+    -webkit-backface-visibility: hidden;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    visibility: visible;
+    -webkit-transform: rotate(-60deg);
+       -moz-transform: rotate(-60deg);
+        -ms-transform: rotate(120deg);
+         -o-transform: rotate(-60deg);
+            transform: rotate(-60deg);
+}
+
+.hexagon-in2.grass {
+	background-image: url(../images/grass1.png);
+}
+
+.hexagon-in2.forest {
+	background-image: url(../images/forest1.png);
+}
+
+.hexagon-in2.water {
+	background-image: url(../images/water1.png);
+}
+
+.hexagon-in2.swamp {
+	background-image: url(../images/swamp1.png);
+}
+
+
+.hexagon-in2:hover {
+	background-image: none;
+    background-color:#AAA;
+}
+
+/* Unit info section */
+#unit-info div.unit-img-holder{
+	float: left;
+}
+
+#unit-info div.name {
+	height: 20px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#unit-info div.number {
+	height: 28px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+#unit-info div.unit-chars {
+	margin-top: 5px;
+	text-align: left;
+	font-size: 16px;
+}
+
+#unit-info div.unit-chars img {
+	margin-right: 5px;
+}
+
+#unit-info div.cur_status {
+	margin-left: 125px;
+	height: 125px;
+}
+
+#unit-info div.cur_status > table {
+	width: 95%
+}
+
+#unit-info div.cur_status .actions {
+	text-align: center;
+}
+
+#unit-info div.unit-chars img{
+	float: left;
+}
+
+#unit-info .morale img {
+    float: left;
+}
+
+#unit-info .morale > div {
+	padding-top: 5px;
+}
+
+#unit-info .fatigue img {
+    float: left;
+}
+
+/******** METER **********/
+.meter { 
+	height: 10px;  /* Can be anything */
+	position: relative;
+	margin-left: 25px;
+	background: #AAA;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+	-moz-box-shadow   : inset 0 -1px 1px rgba(255,255,255,0.3);
+	box-shadow        : inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+.meter > span {
+	display: block;
+	height: 100%;
+	   -webkit-border-top-right-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;
+	       -moz-border-radius-topright: 8px;
+	    -moz-border-radius-bottomright: 8px;
+	           border-top-right-radius: 8px;
+	        border-bottom-right-radius: 8px;
+	    -webkit-border-top-left-radius: 20px;
+	 -webkit-border-bottom-left-radius: 20px;
+	        -moz-border-radius-topleft: 20px;
+	     -moz-border-radius-bottomleft: 20px;
+	            border-top-left-radius: 20px;
+	         border-bottom-left-radius: 20px;
+	background-color: rgb(43,194,83);
+	background-image: -webkit-gradient(
+	  linear,
+	  left bottom,
+	  left top,
+	  color-stop(0, rgb(43,194,83)),
+	  color-stop(1, rgb(84,240,84))
+	 );
+	background-image: -moz-linear-gradient(
+	  center bottom,
+	  rgb(43,194,83) 37%,
+	  rgb(84,240,84) 69%
+	 );
+	-webkit-box-shadow: 
+	  inset 0 2px 9px  rgba(255,255,255,0.3),
+	  inset 0 -2px 6px rgba(0,0,0,0.4);
+	-moz-box-shadow: 
+	  inset 0 2px 9px  rgba(255,255,255,0.3),
+	  inset 0 -2px 6px rgba(0,0,0,0.4);
+	box-shadow: 
+	  inset 0 2px 9px  rgba(255,255,255,0.3),
+	  inset 0 -2px 6px rgba(0,0,0,0.4);
+	position: relative;
+	overflow: hidden;
+}
+
+.green > span {
+	background-color: #a3f0a3;
+	background-image: -moz-linear-gradient(top, #a3f0a3, #23f423);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #a3f0a3),color-stop(1, #23f423));
+	background-image: -webkit-linear-gradient(#a3f0a3, #23f423); 
+}
+
+.yellow > span {
+	background-color: #EEF3A3;
+	background-image: -moz-linear-gradient(top, #eef3a3, #eff622);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #eef3a3),color-stop(1, #eff622));
+	background-image: -webkit-linear-gradient(#eef3a3, #eff622); 
+}
+
+.orange > span {
+	background-color: #f1a165;
+	background-image: -moz-linear-gradient(top, #f1a165, #f36d0a);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f1a165),color-stop(1, #f36d0a));
+	background-image: -webkit-linear-gradient(#f1a165, #f36d0a); 
+}
+
+.red > span {
+	background-color: #f0a3a3;
+	background-image: -moz-linear-gradient(top, #f0a3a3, #f42323);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f0a3a3),color-stop(1, #f42323));
+	background-image: -webkit-linear-gradient(#f0a3a3, #f42323);
+}
+
+.nostripes > span > span, .nostripes > span:after {
+	-webkit-animation: none;
+	background-image: none;
+}
+

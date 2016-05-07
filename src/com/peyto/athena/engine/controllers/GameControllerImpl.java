@@ -1,8 +1,12 @@
 package com.peyto.athena.engine.controllers;
 
+import java.util.Map;
+
 import com.peyto.athena.engine.entity.Game;
+import com.peyto.athena.engine.entity.Position;
 import com.peyto.athena.engine.entity.Team;
 import com.peyto.athena.engine.entity.Unit;
+import com.peyto.athena.engine.math.HexUtils;
 import com.peyto.athena.modules.protocol.AttackResult;
 import com.peyto.athena.modules.protocol.EndTurnResult;
 import com.peyto.athena.modules.protocol.FullGameRefresh;
@@ -11,24 +15,28 @@ import com.peyto.athena.modules.protocol.UnitData;
 import com.peyto.athena.modules.protocol.UpdateEvent;
 
 public class GameControllerImpl implements GameController {
+
+	
+	
 	@Override
 	public MoveResult move(Game game, int unitId, int x, int y) {
-		System.out.println("[" + game + "] move (" + unitId + ", " + x + ", y" + ")");
-		int curX = game.getBoard().getCoordinates(unitId)[0];
-		int curY = game.getBoard().getCoordinates(unitId)[1];
+		System.out.println("[" + game + "] move (" + unitId + ", x=" + x + ", y=" + y + ")");
+		int curX = game.getBoard().getCoordinates(unitId).getX();
+		int curY = game.getBoard().getCoordinates(unitId).getY();
 		Unit unit = game.getBoard().getUnit(unitId);
 		
-		double distance = Math.sqrt((curX - x) * (curX - x) + (curY - y) * (curY - y));
+		try {
+		int distance = HexUtils.calculateHexDistance(x - curX, y - curY);
 		if (distance <= unit.getCurActions()) {
-			// TODO Implement step-by-step logics
-			unit.makeMove(distance);
-			game.getBoard().moveUnit(unit, x, y);
+			// Implement step-by-step logics
+			Map<Integer, Position> animation = game.getBoard().moveUnit(unit, x, y);
+			unit.makeMove(animation.size()-1);
 			
 			if (game.getBoard().isTouchedByOpponents(unit)) {
 				unit.touchedOpponentDuringTurn();
 			}
-			int[] coordinates = game.getBoard().getCoordinates(unitId);
-			MoveResult moveResult = new MoveResult("ok", unitId, curX, curY, coordinates[0], coordinates[1], unit.getCurActions());
+			Position unitPos = game.getBoard().getCoordinates(unitId);
+			MoveResult moveResult = new MoveResult("ok", unitId, curX, curY, unitPos.getX(), unitPos.getY(), unit.getCurActions(), animation);
 			synchronized (game) {
 				game.setLastOccurredEvent(new UpdateEvent("move_result", moveResult));
 				game.notifyAll();
@@ -37,28 +45,40 @@ public class GameControllerImpl implements GameController {
 		} else {
 			return new MoveResult("error");
 		}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new MoveResult("error");
+		}
 	}
 	
 	@Override
 	public AttackResult attack(Game game, int unitId, int x, int y) {
 		System.out.println("[" + game + "] attack (" + unitId + ", " + x + ", y" + ")");
-		int attX = game.getBoard().getCoordinates(unitId)[0];
-		int attY = game.getBoard().getCoordinates(unitId)[1];
+		Position attPos = game.getBoard().getCoordinates(unitId);
 		Unit unitAttack = game.getBoard().getUnit(unitId);
 		Unit unitDefense = game.getBoard().getUnit(x, y);
 		
-		if (Math.abs(attX - x) > 1 || Math.abs(attY - y) > 1) {
-			return new AttackResult("error");
+		// Check distance
+		// Actual for archers, 1 for others
+		int distance = HexUtils.calculateHexDistance(attPos.getX() - x, attPos.getY() - y);
+		boolean attackedByBow = false;
+		if (distance > 1 ) { // TODO archer 
+			// Check archer distance
+			if (distance >= unitAttack.getRangeMin() && distance <= unitAttack.getRangeMax()) {
+				attackedByBow = true;
+			} else {
+				return new AttackResult("error");
+			}
 		}
 		if (!unitAttack.isCanAttack()) {
 			return new AttackResult("error");
 		}
-		double flangsDefensed = game.getBoard().flangsDefended(unitDefense);
-		unitAttack.attack(unitDefense, flangsDefensed, game.getBoard().getAttackingFlank(unitAttack, unitDefense), game.isFirstAttackInGame());
 		
-		if (game.isFirstAttackInGame()) {
-			game.setAttackHappened();
-		}
+		// TODO Unused for now
+		double flangsDefensed = game.getBoard().flangsDefended(unitDefense);
+		int flangsAttacked = game.getBoard().getAttackingFlank(unitAttack, unitDefense);
+		unitAttack.attack(unitDefense, 0, -1, attackedByBow);
+		
 		AttackResult attackRes = new AttackResult("ok", new UnitData(unitAttack), new UnitData(unitDefense));
 		
 		if (unitAttack.getCurrentUnits() <= 0) {
